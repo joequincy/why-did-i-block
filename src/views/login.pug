@@ -1,0 +1,10 @@
+extends layout.pug
+
+block content
+  span.error #{error}
+  form(action="login", method="post")
+    label(for="username") Username 
+    input(type="text", name="username", value=username)
+    label(for="password") Password 
+    input(type="password", name="password")
+    input(type="submit", value="Register")

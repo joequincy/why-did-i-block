@@ -1,0 +1,9 @@
+extends layout.pug 
+
+
+block content 
+  span.errors #{error}
+  ul
+    each user in users 
+      li 
+        a(href=`/users/${user.id}`)= user.username
