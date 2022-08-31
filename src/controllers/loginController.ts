@@ -1,6 +1,5 @@
 import type { RequestHandler } from 'express'
 import { client } from '../db/client'
-import { pp } from '../sugar'
 import bcrypt from 'bcrypt'
 import { TypedRequestBody } from '../models/interfaces'
 import { IKnexUser, User } from '../models/user'
