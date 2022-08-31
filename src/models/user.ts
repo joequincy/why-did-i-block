@@ -1,5 +1,5 @@
 import { } from "knex"
-import { client } from "../db/client"
+import { Client } from "../db/client"
 
 export interface IKnexUser {
   id?: string
@@ -26,7 +26,7 @@ export class User implements IKnexUser {
   }
 
   public static get client() {
-    return client<IKnexUser>('users')
+    return Client.client<IKnexUser>('users')
   }
 
   static fromQuery(knexResponse: IKnexUser): User

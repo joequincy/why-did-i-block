@@ -3,6 +3,7 @@ import dotenv from 'dotenv'
 import { router } from './routes'
 import session from 'express-session'
 import './better-console-dir'
+import { sessionStore } from './db/client'
 
 declare module 'express-session' {
   interface SessionData {
@@ -19,6 +20,7 @@ const sess: session.SessionOptions = {
   },
   resave: false,
   saveUninitialized: false,
+  store: sessionStore,
 }
 
 const app: Express = express()

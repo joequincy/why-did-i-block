@@ -1,5 +1,4 @@
 import type { RequestHandler, Response } from 'express'
-import { client } from '../db/client'
 import { TypedRequestBody } from '../models/interfaces'
 import { User } from '../models/user'
 
