@@ -38,7 +38,7 @@ export const doLogin: RequestHandler = async (req: TypedRequestBody<LoginParams>
     res.status(200).redirect('/')
   })
 
-  return User.fromQuery(user)
+  return User.getByUsername(username)
 }
 
 export const registerView: RequestHandler = (req, res) => {
@@ -60,7 +60,7 @@ export const doRegister: RequestHandler = async (req: TypedRequestBody<RegisterP
   const hash = bcrypt.hashSync(password, 10)
 
   try {
-    const [newUser] = User.fromQuery(await client<IKnexUser>('users').insert({ username, email, password: hash }).returning('*'))
+    const newUser = await User.register({ username, email, password: hash })
 
     req.session.userId = newUser.id
     await req.session.save()

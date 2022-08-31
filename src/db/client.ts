@@ -1,4 +1,8 @@
-import knex from 'knex'
-import { knexConfig } from './knexfile'
+import knex, { Knex } from 'knex'
 
-export const client = knex(knexConfig[process.env.NODE_ENV || 'development'])
+const getConfig = (): Knex.Config => {
+  const environment = process.env.NODE_ENV || 'development'
+  return require('./knexfile')[environment]
+}
+
+export const client = knex(getConfig())

@@ -1,0 +1,11 @@
+extends layout.pug 
+
+
+block content 
+  span.errors #{error}
+  ul
+    li ID #{user.id}
+    li Username #{user.username}
+    li Email #{user.email}
+    li Created At #{user.createdAt}
+    li Updated At #{user.updatedAt}

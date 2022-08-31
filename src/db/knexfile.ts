@@ -1,7 +1,8 @@
 import dotenv from 'dotenv'
 import type { Knex } from 'knex'
+import path from 'path'
 
-dotenv.config()
+dotenv.config({ path: path.join(__dirname, '../../.env') })
 
 // Update with your config settings.
 export const sharedConfig: Knex.Config = {
@@ -42,4 +43,4 @@ export const knexConfig: { [key: string]: Knex.Config } = {
 
 };
 
-export default knexConfig
+module.exports = knexConfig
