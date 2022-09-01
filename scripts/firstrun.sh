@@ -1,5 +1,6 @@
 #!/bin/sh
 
+# Check that NVM is installed. Abort and prompt if not.
 if ! [ -d "${HOME}/.nvm/.git" ]; then
   echo >&2 "nvm is required for this project, please install from"
   echo >&2 "https://github.com/nvm-sh/nvm#git-install"
@@ -7,15 +8,18 @@ if ! [ -d "${HOME}/.nvm/.git" ]; then
   exit 1
 fi
 
+# NVM is installed, make sure the correct Node version is installed
 echo "Ensuring the proper Node version is set"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
 nvm install
 
+# NPM might be out of date. We don't use it in the project, but it's necessary for installing yarn
 if [ $(npm view npm version) != $(npm --version) ]; then
   echo "Updating NPM to latest"
   npm i -g npm@latest
 fi
 
+# Check that docker is installed. If not, install with homebrew, or abort and prompt, depending on circumstances.
 if ! command -v docker >/dev/null 2>&1; then
   if ! [ -z "$WSL_DISTRO_NAME" ]; then
     echo >&2 "docker is required for this project, but must be installed"
@@ -44,6 +48,7 @@ if ! command -v docker >/dev/null 2>&1; then
   brew install docker
 fi
 
+# Install the _good_ package manager. Yes, this is highly opinionated.
 if ! command -v yarn >/dev/null 2>&1; then
   echo "Installing yarn..."
   npm i -g yarn
@@ -51,3 +56,5 @@ fi
 
 echo "Installing project dependencies with yarn..."
 yarn
+
+echo "All set! Make sure to run `nvm use` so that your interactive terminal session uses the correct Node version"
