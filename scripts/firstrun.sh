@@ -57,4 +57,8 @@ fi
 echo "Installing project dependencies with yarn..."
 yarn
 
+echo "Preparing database for the first time..."
+yarn db:init
+yarn db:destroy
+
 echo "All set! Make sure to run `nvm use` so that your interactive terminal session uses the correct Node version"
