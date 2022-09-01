@@ -8,7 +8,13 @@ if ! [ -d "${HOME}/.nvm/.git" ]; then
 fi
 
 echo "Ensuring the proper Node version is set"
-nvm use
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
+nvm install
+
+if [ $(npm view npm version) != $(npm --version) ]; then
+  echo "Updating NPM to latest"
+  npm i -g npm@latest
+fi
 
 if ! command -v docker >/dev/null 2>&1; then
   if ! [ -z "$WSL_DISTRO_NAME" ]; then
