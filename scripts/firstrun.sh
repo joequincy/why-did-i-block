@@ -9,9 +9,11 @@ if ! [ -d "${HOME}/.nvm/.git" ]; then
 fi
 
 # NVM is installed, make sure the correct Node version is installed
-echo "Ensuring the proper Node version is set"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
-nvm install
+if [ $(node -v) != $(cat .nvmrc) ]; then
+  echo "Ensuring the proper Node version is set"
+  nvm install
+fi
 
 # NPM might be out of date. We don't use it in the project, but it's necessary for installing yarn
 if [ $(npm view npm version) != $(npm --version) ]; then
@@ -61,4 +63,4 @@ echo "Preparing database for the first time..."
 yarn db:init
 yarn db:destroy
 
-echo "All set! Make sure to run `nvm use` so that your interactive terminal session uses the correct Node version"
+echo "All set! Make sure to run \"nvm use\" so that your interactive terminal session uses the correct Node version"
