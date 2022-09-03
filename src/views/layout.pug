@@ -1,0 +1,14 @@
+doctype html 
+
+head 
+  title #{title}
+
+body 
+  header It's working
+  block navigation
+    nav 
+      a(href="/login") Log in 
+      a(href="/register") Register
+      a(href="/users") User List 
+  main
+    block content

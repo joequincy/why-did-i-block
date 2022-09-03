@@ -1,0 +1,14 @@
+extends layout.pug
+
+block content
+  span.error #{error}
+  form(action="register", method="post")
+    label(for="username") Username 
+    input(type="text", name="username", value=username)
+    label(for="password") Password 
+    input(type="password", name="password")
+    label(for="cpassword") Confirm Password 
+    input(type="password", name="cpassword")
+    label(for="email") Email 
+    input(type="email", name="email", value=email)
+    input(type="submit", value="Register")

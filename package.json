@@ -7,23 +7,40 @@
   "author": "Jon Peterson <github@joequincy.dev>",
   "license": "MIT",
   "dependencies": {
+    "bcrypt": "^5.0.1",
+    "connect-pg-simple": "^7.0.0",
     "crypto-js": "^4.1.1",
     "dotenv": "^16.0.2",
-    "express": "^4.18.1"
+    "express": "^4.18.1",
+    "express-session": "^1.17.3",
+    "knex": "^2.2.0",
+    "pg": "^8.8.0",
+    "pug": "^3.0.2"
   },
   "devDependencies": {
+    "@types/bcrypt": "^5.0.0",
+    "@types/connect-pg-simple": "^7.0.0",
     "@types/crypto-js": "^4.1.1",
     "@types/express": "^4.17.13",
+    "@types/express-session": "^1.17.5",
     "@types/node": "^18.7.14",
+    "@types/pg": "^8.6.5",
+    "@types/pug": "^2.0.6",
     "concurrently": "^7.3.0",
     "nodemon": "^2.0.19",
+    "ts-node": "^10.9.1",
     "typescript": "^4.8.2"
   },
   "scripts": {
-    "build": "tsc",
+    "db:init": "./scripts/init-local-db.sh",
+    "db:destroy": "docker rm -f wdib-db",
+    "db:start": "docker start wdib-db",
+    "db:stop": "docker stop wdib-db",
+    "build": "tsc && rm -r ./dist/views && cp -r ./src/views ./dist/views",
     "start": "node dist/index.js",
-    "dev": "concurrently --raw \"yarn dev.build\" \"yarn dev.start\"",
-    "dev.build": "tsc --watch",
-    "dev.start": "nodemon -q dist/index.js"
+    "dev": "nodemon -q src/index.ts",
+    "knex:migrate": "knex --knexfile=./src/db/knexfile.ts migrate:latest",
+    "knex:seed": "knex --knexfile=./src/db/knexfile.ts seed:run",
+    "knex:migrate:make": "knex --knexfile=./src/db/knexfile.ts migrate:make"
   }
 }
