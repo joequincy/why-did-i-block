@@ -26,12 +26,12 @@ export const doLogin: RequestHandler = async (req: TypedRequestBody<LoginParams>
   const user = await User.getOneRaw({ username })
 
   if (!user) {
-    return res.status(400).render('login', {
+    return res.status(400).render('users/login', {
       title: 'Log in',
       error: 'Unrecognized user'
     })
   } else if (!bcrypt.compareSync(password, user.password || '')) {
-    return res.status(400).render('login', {
+    return res.status(400).render('users/login', {
       title: 'Log in',
       error: 'Incorrect password.',
       username
@@ -57,7 +57,7 @@ export const doRegister: RequestHandler = async (req: TypedRequestBody<RegisterP
   const { username, password, cpassword, email } = req.body
 
   if (password !== cpassword) {
-    return res.status(400).render('register', {
+    return res.status(400).render('users/register', {
       title: 'Register',
       error: 'Passwords did not match',
       username,
@@ -79,7 +79,7 @@ export const doRegister: RequestHandler = async (req: TypedRequestBody<RegisterP
     if (e instanceof Error) {
       error = `${e.name}\n${e.message}\n${e.stack}`
     }
-    return res.status(400).render('register', {
+    return res.status(400).render('users/register', {
       title: 'Register',
       error,
       username,
