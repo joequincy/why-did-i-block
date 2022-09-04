@@ -16,21 +16,21 @@ export const loginView: RequestHandler = (req, res) => {
   if (req.session.userId) {
     res.redirect('/?m=' + encodeURIComponent('Already logged in'))
   } else {
-    res.render('login')
+    res.render('users/login')
   }
 }
 
 export const doLogin: RequestHandler = async (req: TypedRequestBody<LoginParams>, res) => {
   const { username, password } = req.body
 
-  const user = await User.getOneRaw({ username })
+  const user = await User.query().where({ username }).first()
 
   if (!user) {
     return res.status(400).render('users/login', {
       title: 'Log in',
       error: 'Unrecognized user'
     })
-  } else if (!bcrypt.compareSync(password, user.password || '')) {
+  } else if (!user.authenticate(password)) {
     return res.status(400).render('users/login', {
       title: 'Log in',
       error: 'Incorrect password.',
@@ -45,12 +45,10 @@ export const doLogin: RequestHandler = async (req: TypedRequestBody<LoginParams>
     }
     res.status(200).redirect('/')
   })
-
-  return User.getByUsername(username)
 }
 
 export const registerView: RequestHandler = (req, res) => {
-  res.render('register', { title: 'Register' })
+  res.render('users/register', { title: 'Register' })
 }
 
 export const doRegister: RequestHandler = async (req: TypedRequestBody<RegisterParams>, res) => {
@@ -68,12 +66,12 @@ export const doRegister: RequestHandler = async (req: TypedRequestBody<RegisterP
   const hash = bcrypt.hashSync(password, 10)
 
   try {
-    const newUser = await User.register({ username, email, password: hash })
+    const newUser = await User.query().insert({ username, email, password: hash })
 
     req.session.userId = newUser.id
     await req.session.save()
 
-    res.status(201).send(newUser.username)
+    res.status(201).redirect('/')
   } catch (e) {
     let error = 'unknown error'
     if (e instanceof Error) {
