@@ -1,17 +1,23 @@
-import type { RequestHandler, Response } from 'express'
-import { TypedRequestBody } from '../models/interfaces'
+import type { RequestHandler } from 'express'
 import { User } from '../models/user'
+import { loggable } from './logging'
 
-export const userIndex: RequestHandler = async (req: TypedRequestBody<User>, res: Response) => {
-  const users = await User.query()
-  res.render('users/index', { users })
-}
+@loggable
+export default class UsersController {
+  static [method: string]: RequestHandler<User>
 
-export const getUser: RequestHandler = async (req, res) => {
-  if (req.params.id !== req.session.userId) {
-    return res.status(401).render('users/index', { users: [], error: 'Not authorized' })
+  public static index: RequestHandler<User> = async (req, res) => {
+    const users = await User.query()
+
+    res.render('users/index', { users })
   }
-  const user = await User.query().findById(req.params.id)
 
-  res.render('users/view', { user })
+  public static view: RequestHandler<User> = async (req, res) => {
+    if (req.params.id !== req.session.userId) {
+      return res.status(401).render('users/index', { users: [], error: 'Not authorized' })
+    }
+    const user = await User.query().findById(req.params.id)
+
+    res.render('users/view', { user })
+  }
 }
