@@ -1,0 +1,9 @@
+extends ../layout 
+
+block content 
+  form(action="create", method="post")
+    label(for="name") Name or Display Name 
+    input(type="text", name="name" value=name)
+    label(for="reason") Reasons for blocking 
+    textarea(name="reasons", cols="30", rows="10" value=reason) 
+    input(type="submit", value="Add")  

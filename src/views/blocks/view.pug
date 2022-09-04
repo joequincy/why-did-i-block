@@ -1,0 +1,8 @@
+extends ../layout.pug 
+
+block content 
+  span.errors #{error}
+  article.metadata
+    | Name or Display Name: #[span !{block.name}], created #[span !{block.createdAt}], updated #[span !{block.updatedAt}]
+  article.md !{block.reasons}
+    
