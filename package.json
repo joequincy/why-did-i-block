@@ -43,6 +43,7 @@
     "dev": "nodemon -q src/index.ts",
     "knex:migrate": "knex --knexfile=./src/db/knexfile.ts migrate:latest",
     "knex:seed": "knex --knexfile=./src/db/knexfile.ts seed:run",
+    "knex:seed:make": "knex --knexfile=./src/db/knexfile.ts seed:make",
     "knex:migrate:make": "knex --knexfile=./src/db/knexfile.ts migrate:make"
   }
 }

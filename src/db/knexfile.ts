@@ -22,7 +22,11 @@ export const sharedConfig: Knex.Config = {
 
 export const knexConfig: { [key: string]: Knex.Config } = {
   development: {
-    ...sharedConfig
+    ...sharedConfig,
+    seeds: {
+      directory: './seeds',
+      extension: 'ts'
+    }
   },
 
   staging: {

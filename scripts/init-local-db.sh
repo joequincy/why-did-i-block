@@ -16,4 +16,5 @@ fi
 echo "...creating database..."
 # If $1 is present, that environment is used, otherwise the default environment is used.
 yarn knex:migrate
+yarn knex:seed
 echo "...good to go..."
