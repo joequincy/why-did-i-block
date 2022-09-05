@@ -1,5 +1,4 @@
 import type { RequestHandler } from 'express'
-import bcrypt from 'bcrypt'
 import { User } from '../models/user'
 import { loggable } from './logging'
 
@@ -25,7 +24,7 @@ export default class LoginController {
         title: 'Log in',
         error: 'Unrecognized user'
       })
-    } else if (!user.authenticate(password)) {
+    } else if (!await user.verifyPassword(password)) {
       return res.status(400).render('users/login', {
         title: 'Log in',
         error: 'Incorrect password.',
@@ -58,10 +57,8 @@ export default class LoginController {
       })
     }
 
-    const hash = bcrypt.hashSync(password, 10)
-
     try {
-      const newUser = await User.query().insert({ username, email, password: hash })
+      const newUser = await User.query().insert({ username, email, password })
 
       req.session.userId = newUser.id
       await req.session.save()

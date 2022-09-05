@@ -1,8 +1,13 @@
-import bcrypt from 'bcrypt'
 import { Model } from 'objection'
 import { Block } from './block'
+import op from 'objection-password'
 
-export class User extends Model {
+const Password = op({
+  allowEmptyPassword: false,
+  rounds: 15,
+})
+
+export class User extends Password(Model) {
   static tableName = 'users'
   static idColumn = 'id'
 
@@ -12,10 +17,6 @@ export class User extends Model {
   createdAt!: string
   updatedAt!: string
   password!: string
-
-  authenticate(password: string): boolean {
-    return bcrypt.compareSync(password, this.password)
-  }
 
   static relationMappings = {
     owner: {

@@ -300,7 +300,7 @@ balanced-match@^1.0.0:
   resolved "https://registry.yarnpkg.com/balanced-match/-/balanced-match-1.0.2.tgz#e83e3a7e3f300b34cb9d87f615fa0cbf357690ee"
   integrity sha512-3oSeUO0TMV67hN1AmbXsK4yaqU7tjiHlbxRDZOpH0KW9+CeX4bRAaX0Anxt0tx2MrpRpWwQaPwIlISEJhYU5Pw==
 
-bcrypt@^5.0.1:
+bcrypt@^5.0.0, bcrypt@^5.0.1:
   version "5.0.1"
   resolved "https://registry.yarnpkg.com/bcrypt/-/bcrypt-5.0.1.tgz#f1a2c20f208e2ccdceea4433df0c8b2c54ecdf71"
   integrity sha512-9BTgmrhZM2t1bNuDtrtIMVSmmxZBrJ71n8Wg+YgdjHuIWYF7SjjmCPZFB+/5i/o/PIeRpwVJR3P+NrpIItUjqw==
@@ -1132,6 +1132,13 @@ object-inspect@^1.9.0:
   version "1.12.2"
   resolved "https://registry.yarnpkg.com/object-inspect/-/object-inspect-1.12.2.tgz#c0641f26394532f28ab8d796ab954e43c009a8ea"
   integrity sha512-z+cPxW0QGUp0mcqcsgQyLVRDoXFQbXOwBaqyF7VIgI4TWNQsDHrBpUQslRmIfAoYWdYzs6UlKJtB2XJpTaNSpQ==
+
+objection-password@^3.0.0:
+  version "3.0.0"
+  resolved "https://registry.yarnpkg.com/objection-password/-/objection-password-3.0.0.tgz#b9feea10b55a82e65bea7e23fa8d15d04842d424"
+  integrity sha512-8jBY+KuNuE1K0rdr/FU3+XJijcpSWyKvgXcDw4cvCcw9yb0letTci9ZiNJu72DrBG+et/9YeWpN3p+QtX1zDOg==
+  dependencies:
+    bcrypt "^5.0.0"
 
 objection@^3.0.1:
   version "3.0.1"
